@@ -142,125 +142,125 @@ typedef struct {
 /*!
  * @brief Configure LoRa module according to parameters stored in module structure
  *
- * @param[in] module	pointer to SX1278 structure
+ * @param[in] SX1278	pointer to SX1278 structure
  */
-void SX1278_config(SX1278_t *module);
+void SX1278_config(SX1278_t *SX1278);
 
 /*!
  * @brief Entry LoRa mode
  *
- * @param[in] module	pointer to SX1278 structure
+ * @param[in] SX1278	pointer to SX1278 structure
  */
-void SX1278_entryLoRa(SX1278_t *module);
+void SX1278_entryLoRa(SX1278_t *SX1278);
 
 /*!
  * @brief Clear LoRa interrupt flags
  *
- * @param[in] module	pointer to SX1278 structure
+ * @param[in] SX1278	pointer to SX1278 structure
  */
-void SX1278_clearLoRaIrq(SX1278_t *module);
+void SX1278_clearLoRaIrq(SX1278_t *SX1278);
 
 /*!
  * @brief Entry reception mode
  *
- * @param[in] module	pointer to SX1278 structure
+ * @param[in] SX1278	pointer to SX1278 structure
  * @param[in] length    length of message to be received
  * @param[in] timeout   timeout in [ms]
  *
  * @return SX1278_SUCCESS if entry into RX mode is successful, SX1278_TIMEOUT if timeout was reached
  */
-SX1278_retStatus_t SX1278_LoRaEntryRx(SX1278_t *module, uint8_t length, uint32_t timeout);
+SX1278_retStatus_t SX1278_LoRaEntryRx(SX1278_t *SX1278, uint8_t length, uint32_t timeout);
 
 /*!
  * @brief Read data
  *
  * Read data and store it in module's RX buffer
  *
- * @param[in] module	pointer to SX1278 structure
+ * @param[in] SX1278	pointer to SX1278 structure
  *
  * @return returns number of read bytes
  */
-uint8_t SX1278_LoRaRxPacket(SX1278_t *module);
+uint8_t SX1278_LoRaRxPacket(SX1278_t *SX1278);
 
 /*!
  * @brief Entry transmitter mode
  *
  * Entry transmitter mode
  *
- * @param[in] module	pointer to SX1278 structure
+ * @param[in] SX1278	pointer to SX1278 structure
  * @param[in] length    length of message to be sent
  * @param[in] timeout   timeout in [ms]
  *
  * @return SX1278_SUCCESS if entry into TX mode is successful, SX1278_TIMEOUT if timeout was reached
  */
-SX1278_retStatus_t SX1278_LoRaEntryTx(SX1278_t *module, uint8_t length, uint32_t timeout);
+SX1278_retStatus_t SX1278_LoRaEntryTx(SX1278_t *SX1278, uint8_t length, uint32_t timeout);
 
 /*!
  * @brief Transmit data
  *
- * @param[in] module	pointer to SX1278 structure
+ * @param[in] SX1278	pointer to SX1278 structure
  * @param[in] txBuf     pointer to data to be sent
  * @param[in] length    length of data to be sent
  * @param[in] timeout   timeout in [ms]
  *
  * @return SX1278_SUCCESS if data is successfully sent, SX1278_TIMEOUT if timeout was reached
  */
-SX1278_retStatus_t SX1278_LoRaTxPacket(SX1278_t *module, uint8_t *txBuf, uint8_t length, uint32_t timeout);
+SX1278_retStatus_t SX1278_LoRaTxPacket(SX1278_t *SX1278, uint8_t *txBuf, uint8_t length, uint32_t timeout);
 
 /*!
  * @brief Entry TX mode and send data, combination of SX1278_LoRaEntryTx() and SX1278_LoRaTxPacket()
  *
- * @param[in] module	pointer to SX1278 structure
+ * @param[in] SX1278	pointer to SX1278 structure
  * @param[in] txBuf     pointer to data to be sent
  * @param[in] length    length of data to be sent
  * @param[in] timeout   timeout in [ms]
  *
  * @return SX1278_SUCCESS if data is successfully sent, SX1278_TIMEOUT if timeout was reached
  */
-SX1278_retStatus_t SX1278_transmit(SX1278_t *module, uint8_t *txBuf, uint8_t length, uint32_t timeout);
+SX1278_retStatus_t SX1278_transmit(SX1278_t *SX1278, uint8_t *txBuf, uint8_t length, uint32_t timeout);
 
 /*!
  * @brief Read received data
  *
- * @param[in] module	pointer to SX1278 structure
+ * @param[in] SX1278	pointer to SX1278 structure
  * @param[out] rxBuf    external buffer to store data (terminated with '\0')
  * @param[in] length    length of data to be received
  *
  * @return returns number of read bytes
  */
-uint8_t SX1278_read(SX1278_t *module, uint8_t *rxBuf, uint8_t length);
+uint8_t SX1278_read(SX1278_t *SX1278, uint8_t *rxBuf, uint8_t length);
 
 /*!
  * @brief Returns RSSI (LoRa mode)
  *
- * @param[in] module	pointer to SX1278 structure
+ * @param[in] SX1278	pointer to SX1278 structure
  *
  * @return RSSI value
  */
-uint8_t SX1278_RSSI_LoRa(SX1278_t *module);
+uint8_t SX1278_RSSI_LoRa(SX1278_t *SX1278);
 
 /*!
  * @brief Returns RSSI (general mode)
  *
- * @param[in] module	pointer to SX1278 structure
+ * @param[in] SX1278	pointer to SX1278 structure
  *
  * @return RSSI value
  */
-uint8_t SX1278_RSSI(SX1278_t *module);
+uint8_t SX1278_RSSI(SX1278_t *SX1278);
 
 /*!
  * @brief Enter standby mode
  *
- * @param[in] module	Pointer to LoRa structure
+ * @param[in] SX1278	Pointer to LoRa structure
  */
-void SX1278_standby(SX1278_t *module);
+void SX1278_standby(SX1278_t *SX1278);
 
 /*!
  * @brief Enter sleep mode
  *
- * @param[in] module	Pointer to LoRa structure
+ * @param[in] SX1278	Pointer to LoRa structure
  */
-void SX1278_sleep(SX1278_t *module);
+void SX1278_sleep(SX1278_t *SX1278);
 
 #ifdef __cplusplus
 }
