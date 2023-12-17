@@ -18,41 +18,37 @@ Example usage:
         SX1278.LoRa_CR = SX1278_LORA_CR_4_6;
         SX1278.LoRa_CRC_sum = SX1278_LORA_CRC_EN;
         SX1278.syncWord = cfgSYNC_WORD;
-        SX1278.packetLength = 5;
+        SX1278.payloadSize = 5;
 
-        SX1278_config(&SX1278);
+        SX1278_init(&SX1278);
 
         //Always start in receiver mode
-        if (SX1278_LoRaEntryRx(&SX1278, 1, 2000) == SX1278_SUCCESS)
-        {
-            SX1278_clearLoRaIrq(&SX1278);
-        }
-        else
+        if (SX1278_LoRaStartReceiver(&SX1278, 1, 2000) != SX1278_SUCCESS)
         {
             while(1);
         }
     ```
 - Receive data:
     ```cpp
-    uint8_t rxBuffer[SX1278.packetLength];
+    uint8_t rxBuffer[SX1278.payloadSize];
 
-    toBeReadCounter = SX1278_read(&SX1278, rxBuf, SX1278.packetLength);
+    toBeReadCounter = SX1278_read(SX1278, rxBuffer, SX1278.payloadSize);
     if (toBeReadCounter)
     {
-        //do something with receive data
+        //do something with received data
     }
     ```
 - Transmit data:
     ```cpp
-    uint8_t txBuffer[SX1278.packetLength];
+    uint8_t txBuffer[SX1278.payloadSize];
 
-    if (SX1278_transmit(&SX1278,  txBuf, SX1278.packetLength, 500) == SX1278_SUCCESS)
+    if (SX1278_write(&SX1278, txBuffer, SX1278.payloadSize, 500) == SX1278_SUCCESS)
     {
         //data sent succesfully
     }
 
     //re-enter in RX mode
-    while(SX1278_LoRaEntryRx(&SX1278, 1, 500) != SX1278_SUCCESS);
+    while(SX1278_LoRaStartReceiver(&SX1278, 1, 500) != SX1278_SUCCESS);
     //always remember to clear interrupts to reset errors
     SX1278_clearLoRaIrq(&SX1278);
     ```

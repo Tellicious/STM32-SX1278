@@ -120,20 +120,9 @@ typedef struct {
 	SX1278_HWPin_t dio0;
 	SX1278_HWPin_t cs;
 	void *spi;
-
 	uint64_t frequency;
-	uint8_t power;
-	uint8_t LoRa_SF;
-	uint8_t LoRa_BW;
-	uint8_t LoRa_CR;
-	uint8_t LoRa_CRC_sum;
-	uint8_t packetLength;
-	uint8_t syncWord;
-
+	uint8_t power, LoRa_SF, LoRa_BW, LoRa_CR, LoRa_CRC_sum, payloadSize, syncWord, availableBytes;
 	SX1278_status_t status;
-
-	uint8_t rxBuffer[SX1278_MAX_PACKET];
-	uint8_t readBytesNum;
 } SX1278_t;
 
 
@@ -144,7 +133,7 @@ typedef struct {
  *
  * @param[in] SX1278	pointer to SX1278 structure
  */
-void SX1278_config(SX1278_t *SX1278);
+void SX1278_init(SX1278_t *SX1278);
 
 /*!
  * @brief Entry LoRa mode
@@ -169,18 +158,20 @@ void SX1278_clearLoRaIrq(SX1278_t *SX1278);
  *
  * @return SX1278_SUCCESS if entry into RX mode is successful, SX1278_TIMEOUT if timeout was reached
  */
-SX1278_retStatus_t SX1278_LoRaEntryRx(SX1278_t *SX1278, uint8_t length, uint32_t timeout);
+SX1278_retStatus_t SX1278_LoRaStartReceiver(SX1278_t *SX1278, uint8_t length, uint32_t timeout);
 
 /*!
  * @brief Read data
  *
- * Read data and store it in module's RX buffer
+ * Read data and return it via buffer pointer
  *
  * @param[in] SX1278	pointer to SX1278 structure
+ * @param[out] buffer   pointer to data to be read
+ * @param[in] length    length of data to be read
  *
  * @return returns number of read bytes
  */
-uint8_t SX1278_LoRaRxPacket(SX1278_t *SX1278);
+uint8_t SX1278_read(SX1278_t *SX1278, uint8_t *buffer, uint8_t length);
 
 /*!
  * @brief Entry transmitter mode
@@ -193,42 +184,31 @@ uint8_t SX1278_LoRaRxPacket(SX1278_t *SX1278);
  *
  * @return SX1278_SUCCESS if entry into TX mode is successful, SX1278_TIMEOUT if timeout was reached
  */
-SX1278_retStatus_t SX1278_LoRaEntryTx(SX1278_t *SX1278, uint8_t length, uint32_t timeout);
+SX1278_retStatus_t SX1278_LoRaStartTransmitter(SX1278_t *SX1278, uint8_t length, uint32_t timeout);
 
 /*!
  * @brief Transmit data
  *
  * @param[in] SX1278	pointer to SX1278 structure
- * @param[in] txBuf     pointer to data to be sent
+ * @param[in] buffer    pointer to data to be sent
  * @param[in] length    length of data to be sent
  * @param[in] timeout   timeout in [ms]
  *
  * @return SX1278_SUCCESS if data is successfully sent, SX1278_TIMEOUT if timeout was reached
  */
-SX1278_retStatus_t SX1278_LoRaTxPacket(SX1278_t *SX1278, uint8_t *txBuf, uint8_t length, uint32_t timeout);
+SX1278_retStatus_t SX1278_LoRaTxPacket(SX1278_t *SX1278, uint8_t *buffer, uint8_t length, uint32_t timeout);
 
 /*!
- * @brief Entry TX mode and send data, combination of SX1278_LoRaEntryTx() and SX1278_LoRaTxPacket()
+ * @brief Entry TX mode and send data, combination of SX1278_LoRaStartTransmitter() and SX1278_LoRaTxPacket()
  *
  * @param[in] SX1278	pointer to SX1278 structure
- * @param[in] txBuf     pointer to data to be sent
+ * @param[in] buffer     pointer to data to be sent
  * @param[in] length    length of data to be sent
  * @param[in] timeout   timeout in [ms]
  *
  * @return SX1278_SUCCESS if data is successfully sent, SX1278_TIMEOUT if timeout was reached
  */
-SX1278_retStatus_t SX1278_transmit(SX1278_t *SX1278, uint8_t *txBuf, uint8_t length, uint32_t timeout);
-
-/*!
- * @brief Read received data
- *
- * @param[in] SX1278	pointer to SX1278 structure
- * @param[out] rxBuf    external buffer to store data (terminated with '\0')
- * @param[in] length    length of data to be received
- *
- * @return returns number of read bytes
- */
-uint8_t SX1278_read(SX1278_t *SX1278, uint8_t *rxBuf, uint8_t length);
+SX1278_retStatus_t SX1278_write(SX1278_t *SX1278, uint8_t *buffer, uint8_t length, uint32_t timeout);
 
 /*!
  * @brief Returns RSSI (LoRa mode)
