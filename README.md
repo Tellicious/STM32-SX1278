@@ -3,7 +3,7 @@
 Example usage:
 - Initialization:
     ```cpp
-    //initialize LoRa module
+    /* initialize LoRa module */
         SX1278.dio0.port = LoRaInt_GPIO_Port;
         SX1278.dio0.pin = LoRaInt_Pin;
         SX1278.cs.port = LoRaCS_GPIO_Port;
@@ -22,7 +22,7 @@ Example usage:
 
         SX1278_init(&SX1278);
 
-        //Always start in receiver mode
+        /* Always start in receiver mode */
         if (SX1278_LoRaStartReceiver(&SX1278, 1, 2000) != SX1278_SUCCESS)
         {
             while(1);
@@ -35,7 +35,7 @@ Example usage:
     toBeReadCounter = SX1278_read(SX1278, rxBuffer, SX1278.payloadSize);
     if (toBeReadCounter)
     {
-        //do something with received data
+        /* do something with received data */
     }
     ```
 - Transmit data:
@@ -44,11 +44,11 @@ Example usage:
 
     if (SX1278_write(&SX1278, txBuffer, SX1278.payloadSize, 500) == SX1278_SUCCESS)
     {
-        //data sent succesfully
+        /* data sent succesfully */
     }
 
-    //re-enter in RX mode
+    /* re-enter in RX mode */
     while(SX1278_LoRaStartReceiver(&SX1278, 1, 500) != SX1278_SUCCESS);
-    //always remember to clear interrupts to reset errors
+    /* always remember to clear interrupts to reset errors */
     SX1278_clearLoRaIrq(&SX1278);
     ```
