@@ -1,5 +1,5 @@
 /* BEGIN Header */
-/*!
+/**
  ******************************************************************************
  * \file            SX1278.h
  * \author          Andrea Vivani
@@ -89,7 +89,7 @@ extern "C" {
 typedef enum { SX1278_SLEEP = 0, SX1278_STANDBY = 1, SX1278_TX = 2, SX1278_RX = 3 } SX1278_status_t;
 
 /*
-* SX1278 return          status
+* SX1278 return status
 */
 typedef enum { SX1278_SUCCESS = 0, SX1278_ERROR = 1, SX1278_TIMEOUT = 2 } SX1278_retStatus_t;
 
@@ -114,28 +114,28 @@ typedef struct {
 
 /* Function prototypes --------------------------------------------------------*/
 
-/*!
+/**
  * \brief           Configure LoRa module according to parameters stored in module structure
  *
  * \param[in]       SX1278: pointer to SX1278 structure
  */
 void SX1278_init(SX1278_t* SX1278);
 
-/*!
+/**
  * \brief           Entry LoRa mode
  *
  * \param[in]       SX1278: pointer to SX1278 structure
  */
 void SX1278_entryLoRa(SX1278_t* SX1278);
 
-/*!
+/**
  * \brief           Clear LoRa interrupt flags
  *
  * \param[in]       SX1278: pointer to SX1278 structure
  */
 void SX1278_clearLoRaIrq(SX1278_t* SX1278);
 
-/*!
+/**
  * \brief           Entry reception mode
  *
  * \param[in]       SX1278: pointer to SX1278 structure
@@ -146,7 +146,7 @@ void SX1278_clearLoRaIrq(SX1278_t* SX1278);
  */
 SX1278_retStatus_t SX1278_LoRaStartReceiver(SX1278_t* SX1278, uint8_t length, uint32_t timeout);
 
-/*!
+/**
  * \brief           Read data
  *
  * Read data and return          it via buffer pointer
@@ -159,7 +159,7 @@ SX1278_retStatus_t SX1278_LoRaStartReceiver(SX1278_t* SX1278, uint8_t length, ui
  */
 uint8_t SX1278_read(SX1278_t* SX1278, uint8_t* buffer, uint8_t length);
 
-/*!
+/**
  * \brief           Entry transmitter mode
  *
  * Entry transmitter mode
@@ -172,7 +172,7 @@ uint8_t SX1278_read(SX1278_t* SX1278, uint8_t* buffer, uint8_t length);
  */
 SX1278_retStatus_t SX1278_LoRaStartTransmitter(SX1278_t* SX1278, uint8_t length, uint32_t timeout);
 
-/*!
+/**
  * \brief           Transmit data
  *
  * \param[in]       SX1278: pointer to SX1278 structure
@@ -184,7 +184,7 @@ SX1278_retStatus_t SX1278_LoRaStartTransmitter(SX1278_t* SX1278, uint8_t length,
  */
 SX1278_retStatus_t SX1278_LoRaTxPacket(SX1278_t* SX1278, uint8_t* buffer, uint8_t length, uint32_t timeout);
 
-/*!
+/**
  * \brief           Entry TX mode and send data, combination of SX1278_LoRaStartTransmitter() and SX1278_LoRaTxPacket()
  *
  * \param[in]       SX1278: pointer to SX1278 structure
@@ -196,7 +196,7 @@ SX1278_retStatus_t SX1278_LoRaTxPacket(SX1278_t* SX1278, uint8_t* buffer, uint8_
  */
 SX1278_retStatus_t SX1278_write(SX1278_t* SX1278, uint8_t* buffer, uint8_t length, uint32_t timeout);
 
-/*!
+/**
  * \brief           return         s RSSI (LoRa mode)
  *
  * \param[in]       SX1278: pointer to SX1278 structure
@@ -205,7 +205,7 @@ SX1278_retStatus_t SX1278_write(SX1278_t* SX1278, uint8_t* buffer, uint8_t lengt
  */
 uint8_t SX1278_RSSI_LoRa(SX1278_t* SX1278);
 
-/*!
+/**
  * \brief           return         s RSSI (general mode)
  *
  * \param[in]       SX1278: pointer to SX1278 structure
@@ -214,14 +214,14 @@ uint8_t SX1278_RSSI_LoRa(SX1278_t* SX1278);
  */
 uint8_t SX1278_RSSI(SX1278_t* SX1278);
 
-/*!
+/**
  * \brief           Enter standby mode
  *
  * \param[in]       SX1278: Pointer to LoRa structure
  */
 void SX1278_standby(SX1278_t* SX1278);
 
-/*!
+/**
  * \brief           Enter sleep mode
  *
  * \param[in]       SX1278: Pointer to LoRa structure

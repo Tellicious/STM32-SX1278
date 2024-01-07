@@ -177,11 +177,11 @@
 #define SX1278_PIN_SET                      GPIO_PIN_SET
 #define SX1278_PIN_RESET                    GPIO_PIN_RESET
 
-static void SX1278_SPIBurstRead(SX1278_t* SX1278, uint8_t addr, uint8_t* rxBuf, uint8_t length) {
+static void SX1278_SPIBurstRead(SX1278_t* SX1278, uint8_t addr, uint8_t* buffer, uint8_t length) {
     SX1278_WRITE_PIN(SX1278->cs.port, SX1278->cs.pin, SX1278_PIN_RESET);
     while (HAL_SPI_GetState(SX1278->spi) != HAL_SPI_STATE_READY) {};
     HAL_SPI_Transmit(SX1278->spi, &addr, 1, 1000);
-    HAL_SPI_Receive(SX1278->spi, rxBuf, length, 1000);
+    HAL_SPI_Receive(SX1278->spi, buffer, length, 1000);
     while (HAL_SPI_GetState(SX1278->spi) != HAL_SPI_STATE_READY) {};
     SX1278_WRITE_PIN(SX1278->cs.port, SX1278->cs.pin, SX1278_PIN_SET);
 }
